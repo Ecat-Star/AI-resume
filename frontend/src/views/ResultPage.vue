@@ -287,6 +287,7 @@ const startAnalyze = async () => {
           if (!content) continue
 
           allText += content
+          console.log('[流式] 收到内容:', content.substring(0, 50), '总长度:', allText.length)
 
           // 检测到 JSON 开始标记，停止更新思考过程显示
           if (!jsonFound && allText.includes('===JSON_START===')) {
@@ -313,7 +314,9 @@ const startAnalyze = async () => {
     }
 
     // 解析 JSON，更新页面
+    console.log('[分析] 提取到的 JSON 文本:', jsonText.trim().substring(0, 200))
     const result = parseAIResponse(jsonText.trim())
+    console.log('[分析] 解析结果:', result)
     await saveToStore(result)
 
     ElMessage.success('分析完成')
